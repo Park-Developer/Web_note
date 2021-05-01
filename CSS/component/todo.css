@@ -1,0 +1,18 @@
+
+.js-TODO_List__Title{
+    color :whitesmoke;
+    font-weight: 600;
+
+
+}
+
+.js-toDoForm{
+    margin-top: 10px;
+}
+
+
+.js-toDoList{
+    color:whitesmoke;
+    
+    justify-content: space-between;
+}

@@ -1,0 +1,12 @@
+.status-bar__Clock{
+    margin-right: 30px;
+    font-weight: 600;
+}
+
+.status-bar__Clock_Date{
+color : white;
+
+}
+.status-bar__Clock_Time{
+    color : white;
+}

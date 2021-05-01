@@ -1,0 +1,24 @@
+.status-bar{
+    position : fixed;
+    top:0px;
+
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    align-items: center;
+    padding : 5px 3px;
+    background-color: var(--status_color);
+
+}
+
+.status-bar__User
+{color : var(--titlecolor);}
+.status-bar__Date
+{color : var(--titlecolor);}
+.status-bar__Time
+{color : var(--titlecolor);}
+
+
+.js-TODO_List{
+    margin-top: 100px;
+} 
