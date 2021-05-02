@@ -13,12 +13,21 @@
 
 .status-bar__User
 {color : var(--titlecolor);}
-.status-bar__Date
-{color : var(--titlecolor);}
-.status-bar__Time
-{color : var(--titlecolor);}
 
 
-.js-TODO_List{
-    margin-top: 100px;
-} 
+
+.status-bar__Clock{
+    margin-right: 30px;
+}
+
+.status-bar__Clock_Date
+{
+    margin-right: 3px;
+    color : var(--titlecolor);
+}
+
+.status-bar__Clock_Time
+{
+    color : var(--titlecolor);
+}
+

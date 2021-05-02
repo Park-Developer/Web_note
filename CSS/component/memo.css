@@ -1,0 +1,33 @@
+.js-Memo{
+  
+ 
+    
+    color : whitesmoke;
+}
+
+.js-Memo_Title{
+
+    color : whitesmoke;
+}
+
+.js-Memo__Button_list{
+    margin-top: var(--component_Title_top_margin);
+    display: flex;
+
+    align-items: center;
+}
+
+.js-Memo__Button_1{
+background-color: blue;
+
+}
+
+.js-Memo__Button_2{
+    background-color:orange;
+}
+
+    
+.js-Memo__Button_3{
+    background-color:green;
+}
+        

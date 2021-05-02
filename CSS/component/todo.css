@@ -1,13 +1,14 @@
+.js-TODO {
+ 
+}
 
 .js-TODO_List__Title{
     color :whitesmoke;
     font-weight: 600;
-
-
 }
 
 .js-toDoForm{
-    margin-top: 10px;
+    margin-top: var(--component_Title_top_margin);
 }
 
 

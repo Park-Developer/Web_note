@@ -16,7 +16,7 @@ function getTime(){
     const month = date.getMonth()
     const day = date.getDay();
     const year = date.getUTCFullYear();
-    clockDate.innerText=`${year}-${month}-${day}`;
+    clockDate.innerText=`${year}-${month+1}-${day+1}`;
     clockTime.innerText=`${hours}:${minutes}:${ seconds<10 ? `0${seconds}`: seconds}`;
   }  
   
