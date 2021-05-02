@@ -1,10 +1,19 @@
 .js-Schedule{
-
+color :white;
 }
 
+tr{
+    border:1px solid white;
+}
+
+.js-Schedule__Table{
+    border:1px solid white;
+    margin-top: var(--component_Title_top_margin);
+}
 
 .js-Schedule__Title{
     color :whitesmoke;
     font-weight: 600;
+   
 
 }
