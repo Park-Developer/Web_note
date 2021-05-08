@@ -7,4 +7,8 @@
     --main_frame_top_margin:40px;
     --component-Status_top_margin:30px;
     --component_Title_top_margin:10px;
+
+    /*Memo Variable*/
+    --deactivated_Btn_Color: gray;
+    
 }
