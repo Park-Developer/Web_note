@@ -1,0 +1,41 @@
+.detail_frame{
+ margin : 30px;
+ display: flex;
+}
+
+
+.js-Detail_frame{
+    margin-left:30px;
+    width:60%;
+    background-color: gray;
+
+    border-top-left-radius: 50px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 10px;
+}
+
+.js-Detail_frame__title{
+    margin-left:30px;
+    color:white;
+}
+
+.event_setting{
+    margin-top: 30px;
+}
+.event_setting__name{
+    margin-left: 10px;
+    display: flex; 
+}
+.event_setting__time{
+    margin-left: 10px;
+    display: flex;
+}
+
+.event_setting__alarm{
+    margin-left: 10px;
+    display: flex;
+}
+
+.event_setting_buttons{
+margin:30px;

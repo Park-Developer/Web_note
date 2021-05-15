@@ -1,4 +1,5 @@
-
+const schedule_table=document.querySelector(".js-Schedule__Table");
+const past_Color="#808080"; // #808080 : Gray 
 function check_priorTime(hours,minutes){
     var time;
     for (time = 6; time < 24; time++) {
@@ -32,7 +33,7 @@ function minute_change_color(hours,minutes){
             
             var cls_name=`.row_${hour}${time_type}_${min-10}m`;
             var min_cls=document.querySelector(cls_name);
-            min_cls.style.backgroundColor="red";
+            min_cls.style.backgroundColor= past_Color;
         }
         else{
             break;
@@ -55,35 +56,26 @@ function hour_change_color(hours){
         var hour=hours;
         }
     }
-    console.log(hour);
-    /*
-    var hour_cls1=`.row_${hour}${time_type}_0m`;
-    var hour_cls2=`.row_${hour}${time_type}_10m`;
-    var hour_cls3=`.row_${hour}${time_type}_20m`;
-    var hour_cls4=`.row_${hour}${time_type}_30m`;
-    var hour_cls5=`.row_${hour}${time_type}_40m`;
-    var hour_cls6=`.row_${hour}${time_type}_50m`;
-    var current_hour1=document.querySelector(hour_cls1);
-    var current_hour2=document.querySelector(hour_cls2);
-    var current_hour3=document.querySelector(hour_cls3);
-    var current_hour4=document.querySelector(hour_cls4);
-    var current_hour5=document.querySelector(hour_cls5);
-    var current_hour6=document.querySelector(hour_cls6);
-    current_hour1.style.backgroundColor="red";
-    current_hour2.style.backgroundColor="red";
-    current_hour3.style.backgroundColor="red";
-    current_hour4.style.backgroundColor="red";
-    current_hour5.style.backgroundColor="red";
-    current_hour6.style.backgroundColor="red";
-    */
+ 
+  
     var hour_cls1=`.row_th_${hour}${time_type}`;
     var current_hours=document.querySelectorAll(hour_cls1);
     
-    current_hours.forEach(hour=>hour.style.backgroundColor="red");
+    current_hours.forEach(hour=>hour.style.backgroundColor= past_Color);
 
-
-    //current_hour1.style.backgroundColor="red";
 }
+
+function move_to_Detail(){
+    location.href = "detail.html";
+}
+
+
+function setClickEvent(){
+    for(var i = 0; i < schedule_table.rows.length; i++) {
+        schedule_table.rows[i].cells[1].addEventListener('click',move_to_Detail);
+      }
+}
+
 
 function getTime(){
     const date = new Date();
@@ -99,9 +91,16 @@ function getTime(){
   
 
   function init(){
+  // 시간표시
   getTime();
   setInterval(getTime,1000);
- 
+
+  // Event 설정
+  setClickEvent();
+
+  console.log('length',schedule_table.rows.length);
+  console.log(schedule_table.rows[2].cells[1]);
+
 }
   
   init();
