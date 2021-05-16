@@ -1,5 +1,16 @@
 .js-Schedule{
 color :white;
+
+}
+
+.js-Schedule_Time_Header{
+background-color: chocolate;
+}
+.js-Schedule_Schedule_Header{
+    background-color: chocolate;
+}
+.js-Schedule_time_column{
+    background-color: chocolate;
 }
 
 tr{
@@ -16,6 +27,11 @@ tr{
     font-weight: 600;
    
 
+}
+
+.detail_time{
+    font-size: 10px;
+    opacity: 0.5;
 }
 
 .time_TH{

@@ -31,6 +31,12 @@
     margin-left: 10px;
     display: flex;
 }
+.event_setting__time__From{
+    display: flex;
+}
+.event_setting__time__To{
+    display: flex;
+}
 
 .event_setting__alarm{
     margin-left: 10px;

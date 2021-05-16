@@ -10,6 +10,7 @@
  @import "../CSS/component/schedule.css";
  @import "../CSS/component/statistics.css";
  @import "../CSS/Detail/detail_frame.css";
+ @import "../CSS/component/timer.css";
  
  body {
      height:1000vh;
