@@ -11,6 +11,7 @@ var pause__end_time=0;
 var is_timer_run=false;
 
 var recorded_time=0
+var updated_time=0
 
 /*
 const start = Date.now();
@@ -24,7 +25,13 @@ setTimeout(() => {
   console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`);
   // expected output: seconds elapsed = 2
 */
-
+function timer_Update(){
+    if(is_timer_run==true){
+        updated_time= Date.now()-record__start_time;
+        time_display.innerText=Math.floor(updated_time / 1000);
+    
+    }
+}
 
 function time_logging(){
     if (is_timer_run==false){
@@ -54,6 +61,7 @@ function time_logging(){
 function init()
 {
     start_button.addEventListener('click', time_logging);
+    setInterval(timer_Update,1000);
 }
 
 init();
