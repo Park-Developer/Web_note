@@ -86,9 +86,16 @@ function getTime(){
     const month = date.getMonth()
     const day = date.getDay();
     const year = date.getUTCFullYear();
-    check_priorTime(hours,minutes);
+    //test
+    if (hours>=7){
+        check_priorTime(hours,minutes);
+    }else{
+        
+    }
+
   }  
   
+
 
   function init(){
   // 시간표시

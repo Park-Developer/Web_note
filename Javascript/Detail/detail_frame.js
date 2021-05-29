@@ -1,10 +1,12 @@
 //datail.html
-var is_alarm=false;
+let is_alarm=false;
+let alarm_time=0;
 const selection_color="#000080";
 const event_number=20;
-
-var event_counter=0;
-
+console.log('loc',window.location.href);
+var temp=window.location.href.split('/');
+let current_page=temp[temp.length-1];
+console.log('current_page',current_page);
 // Event Color Setting
 var event_color={
     event_color_1:"#FF3300", // 진한 주황
@@ -31,26 +33,41 @@ var event_color={
 };
 
 
-// Detail Frame
-const detail_frame=document.querySelector(".js-Detail_frame");
-cancel_btn =detail_frame.querySelector(".event_setting_cancel_buttons");
-save_btn =detail_frame.querySelector(".event_setting_save_buttons");
+if (current_page=="index.html"){
+    // Main Frame
+    console.log('pass');
+    var main_frame=document.querySelector(".main_frame"); //new
+    console.log('main_frame',main_frame);
+    var main_schedule=main_frame.querySelector(".js-Schedule"); 
+    console.log('main_schedule',main_schedule);
+}else if(current_page=="detail.html"){
+    // Detail Frame
+  
+    var detail_frame=document.querySelector(".detail_frame");
+    var detail_schedule=document.querySelector(".js-Schedule");
 
-// Event Name
-event_name =detail_frame.querySelector(".event_setting__name_text");
+    var detail_frame__setting=detail_frame.querySelector(".js-Detail_frame__setting");
+    var cancel_btn =detail_frame__setting.querySelector(".event_setting_cancel_buttons");
+    var save_btn =detail_frame__setting.querySelector(".event_setting_save_buttons");
 
-//Event Time
-from_hour=detail_frame.querySelector(".event_setting__Hour__From__option");
-from_minute=detail_frame.querySelector(".event_setting__Minuete__From__option");
-to_hour=detail_frame.querySelector(".event_setting__Hour__To__option");
-to_minute=detail_frame.querySelector(".event_setting__Minuete__To__option");
+    // Event Name
+    var event_name =detail_frame__setting.querySelector(".event_setting__name_text");
 
-event_alarm=detail_frame.querySelector(".event_setting__alarm_option");
+    //Event Time
+    var from_hour=detail_frame__setting.querySelector(".event_setting__Hour__From__option");
+    var from_minute=detail_frame__setting.querySelector(".event_setting__Minuete__From__option");
+    var to_hour=detail_frame__setting.querySelector(".event_setting__Hour__To__option");
+    var to_minute=detail_frame__setting.querySelector(".event_setting__Minuete__To__option");
+
+    var event_alarm=detail_frame__setting.querySelector(".event_setting__alarm_option");
+}else{
+    alert("[Warning] Unknowned Page");
+}
+
 
 // Scheduel 
+
 const schedule=document.querySelector(".js-Schedule");
-
-
 
 function extract_time_class_Info(selected_hour, selected_minute){
     // 선택된 데이터를 통해 해당 class명을 return
@@ -61,6 +78,7 @@ function extract_time_class_Info(selected_hour, selected_minute){
         if (minute=="00"){ // 00 중복 제거
             minute="0";
         }
+
     var result="";
     
     if (selected_hour.indexOf("AM")!=-1){
@@ -108,22 +126,16 @@ function return_className_from_Idx(time_idx){
 
 }
 
-function select_related_times(from_hour, from_minute,to_hour, to_minute){
+function select_related_times(event_info,event_counter){
     // Event 시간 대 색칠하기
-    from_idx=calc_timeIdx(from_hour.value, from_minute.value);
-    to_idx=calc_timeIdx(to_hour.value, to_minute.value);
-
-    //var step;
-    //var step_number=to_idx-from_idx;
-    //console.log('from',from_idx);
-    //console.log('to',to_idx);
+    let from_idx=calc_timeIdx(event_info["from_hour_value"], event_info["from_minute_value"]);
+    let to_idx=calc_timeIdx(event_info["to_hour_value"],event_info["to_minute_value"]);
  
 
     // Event 시간 영역 색칠하기
-    time_idx=from_idx; // 색칠 시작 포인트
+    let time_idx=from_idx; // 색칠 시작 포인트
+
     for (time_idx; time_idx < to_idx; time_idx++) {
-        //console.log('time idx', time_idx);
-        //console.log(return_className_from_Idx(time_idx));
         var selected_time_class=document.querySelector(return_className_from_Idx(time_idx));
         var color_code="event_color_"+String(event_counter);
         selected_time_class.style.backgroundColor= event_color[color_code];
@@ -131,7 +143,7 @@ function select_related_times(from_hour, from_minute,to_hour, to_minute){
 }
 
 function check_time_condition(from_hour_value,from_minute_value,to_hour_value,to_minute_value){
-    is_pass=true;
+    let is_pass=true;
 
     // CASE1 : Time Selection Check
     if (from_hour_value=="--Hour--" || from_minute_value=="--Minutes--"){
@@ -159,10 +171,11 @@ function check_alarm_condition(){
    
     if (event_alarm.value=="--Please choose an option--"){
         is_alarm=false;
+        alarm_time=0;
     }else{
         is_alarm=true;
+        alarm_time=event_alarm.value;
     }
-
     // error 처리 기능도 추가
 }
 
@@ -176,82 +189,155 @@ function check_save_condition(from_hour_value,from_minute_value,to_hour_value,to
 }
 
 function save_click(){
+    var event_counter= Number(localStorage.getItem("event_counter"));
     event_counter+=1;
+
+    localStorage.setItem("event_counter", event_counter);
+
     var is_save_possible=false;
 
     is_save_possible=check_save_condition(from_hour.value,from_minute.value,to_hour.value,to_minute.value);
-    select_related_times(from_hour, from_minute,to_hour, to_minute); //  Event 시간 색칠하기
     
-    register_event(); // Event 이름 등록
-
     if(is_save_possible==true){
-        location.href = "index.html"; // index.html로 돌아가기
+            // Event 정보 객체 
+        let event_info={
+            "event_name":event_name.value,
+            "alarm_time":alarm_time,
+            "from_hour_value":from_hour.value,
+            "from_minute_value":from_minute.value,
+            "to_hour_value":to_hour.value,
+            "to_minute_value":to_minute.value
+        };
+        let is_update=false;
+
+        register_event(event_info,event_counter,is_update); // Event 이름 등록
+        //location.href = "index.html"; // index.html로 돌아가기
     }else{
-        
+        // Alarm 추가
     }
-    
-
 }
 
-function merging_table(event_start_point){
-    from_idx=calc_timeIdx(from_hour.value, from_minute.value);
-    to_idx=calc_timeIdx(to_hour.value, to_minute.value);
-    var span_number=(to_idx-from_idx);
-
-
-    //test_table=schedule.querySelector(".row_7am_50m");
-    //console.log(test_table);
-    //test_table__detail_property=test_table.querySelector(".detail_event");
-    event_start_point.setAttribute("rowspan", span_number); 
-    
-}
-
-function register_event(){
-
+function register_event(event_info,event_counter,is_update){
     // Class Name 확인
-    var event_startTime_cls=extract_time_class_Info(from_hour.value,from_minute.value);
-
+    var event_startTime_cls=extract_time_class_Info(event_info["from_hour_value"],event_info["from_minute_value"]);
+    console.log("event_startTime_cls",event_startTime_cls)
     // 해당 Class 선택 
-    var startTime=document.querySelector(event_startTime_cls);
-    var event_start_point=startTime.querySelector(".detail_event");
+    // Main Schedule에서 선택
+    if (current_page=="index.html"){
+        var startTime=main_schedule.querySelector(event_startTime_cls);
+        console.log("startTime",startTime);
+        var event_start_point=startTime.querySelector(".detail_event");
+        console.log(event_start_point);
+    }else if(current_page=="detail.html"){
+        var startTime=detail_schedule.querySelector(event_startTime_cls);
+        var event_start_point=startTime.querySelector(".detail_event");
+    }else{
+        alert("[Warning] Unknowned Page");
+    }
 
-    // 행 합치기
-    merging_table(event_start_point)
 
-    /*
-    test_table=schedule.querySelector(".row_7am_50m");
-    console.log(test_table);
-    test_table__detail_property=test_table.querySelector(".detail_event");
-    test_table__detail_property.setAttribute("rowspan", 3); 
-    */
+    // Detatil Schedule에서 선택
+
+
+
+    // Event 시간 행 합치기
+    let from_idx=calc_timeIdx(event_info["from_hour_value"],event_info["from_minute_value"]);
+    let to_idx=calc_timeIdx(event_info["to_hour_value"], event_info["to_minute_value"]);
+    let span_number=(to_idx-from_idx);
+    console.log(" event_start_point", event_start_point);
+    event_start_point.setAttribute("rowspan", span_number); 
 
     // Event명 & Alarm 기록
-    if (is_alarm==true){
-        event_start_point.innerText=event_name.value+"🕒";
+    if (event_info["alarm_time"]!=0){
+        event_start_point.innerText=event_info["event_name"]+"🕒";
+        alarm_time=event_info["alarm_time"];
     }else{
-        event_start_point.innerText=event_name.value;
+        event_start_point.innerText=event_info["event_name"];
+        alarm_time=0;
+    }
+    
+    select_related_times(event_info,event_counter); // 관련 구역 색칠
+
+    //Web storage에 데이터 저장
+    //Data Form : Event_name,From_Hour,From_Minutes,To_Hour,To_Minutes,Alarm
+    if(is_update==false){
+    let data_name="Event #"+String(event_counter);
+    let web_storage_data=event_info["event_name"]+","+event_info["from_hour_value"]+","+event_info["from_minute_value"]+","
+    +event_info["to_hour_value"]+","+event_info["to_minute_value"]+","+event_info["alarm_time"];
+    localStorage.setItem(data_name,web_storage_data);
     }
 
-    // Alarm 기록
-    // test
+}
 
+function make_eventInfo_fromLD(local_event_data){
+    let event_array=local_event_data.split(',');
+    /*
+    ## Reference ##
+    let event_name=event_array[0];
+    let alarm_time=event_array[5];
+    let from_hour_value=event_array[1];
+    let from_minute_value=event_array[2];
+    let to_hour_value=event_array[3];
+    let to_minute_value=event_array[4];
+    */
+
+    let event_info={
+        "event_name":event_array[0],
+        "alarm_time":event_array[5],
+        "from_hour_value":event_array[1],
+        "from_minute_value":event_array[2],
+        "to_hour_value":event_array[3],
+        "to_minute_value":event_array[4]
+    };
+
+    return event_info;
+}
+
+function save_data(){
+    
 }
 
 function cancel_click(){
     location.href = "index.html";
 }
 
+function update_event()
+{
+    // Event Counter 설정
+    let event_counter=0;
 
+    for(let i=0; i<localStorage.length; i++) {
+        //let key = localStorage.key(i);
+        //alert(`${key}: ${localStorage.getItem(key)}`);
+        let key=localStorage.key(i);
+        console.log("kety ?",key);
+        if (key.indexOf("Event #")!=-1){
+            let regex = /[^0-9]/g;	
+            event_counter = parseInt(key.replace(regex, ""));
+            
+            let data=localStorage.getItem(key);
+            let event_info = make_eventInfo_fromLD(data);
+            let is_update=true;
+            register_event(event_info,event_counter,is_update);
+        
+        }
+      }
+    localStorage.setItem("event_counter", event_counter);
+}
 
 function init()
 {
-// [TEST]
-// [TEST]
+   
+    update_event();
 
-// Event Setting
-save_btn.addEventListener("click", save_click);
-cancel_btn.addEventListener("click", cancel_click);
+    if (current_page=="index.html"){
 
+    }else if(current_page=="detail.html"){
+        save_btn.addEventListener("click", save_click);
+        cancel_btn.addEventListener("click", cancel_click);
+    }else{
+        alert("[Warning] Unknowned Page");
+    }
 }
 
 
