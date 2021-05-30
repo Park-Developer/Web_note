@@ -3,7 +3,7 @@
  display: flex;
 }
 
-
+/* Event Setting*/
 .js-Detail_frame__setting{
     /* Frame Shape */
     margin-left:30px;
@@ -26,6 +26,7 @@
     transition: 0.5s;
     padding-top: 60px;
 }
+
 @media screen and (max-height:450px){
     .js-Detail_frame__setting {padding-top:15px;}
 }
@@ -59,4 +60,30 @@
 }
 
 .event_setting_buttons{
-margin:30px;
+margin:30px;}
+
+
+
+/* Event Modification*/
+.js-Detail_frame__modification{
+    /* Frame Shape */
+    margin-left:30px;
+    width:60%;
+    background-color: gray;
+
+    border-top-left-radius: 50px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 10px;
+
+    /* Animation */
+    height :100%;
+    width:0%;
+    position: fixed;
+    z-index:1;
+    top:0;
+    right:0;
+    overflow-x:hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}

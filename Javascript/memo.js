@@ -199,7 +199,8 @@ function init(){
     Btn_list_setting();
     text_area_Setting();
     // Memo_area= Memo.querySelector(".memo_content");
-
+    setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
+    
 }
 
 init();

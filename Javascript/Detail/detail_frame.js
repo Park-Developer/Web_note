@@ -32,9 +32,6 @@ var event_color={
     event_color_20:"#66FFCC"
 };
 
-
-
-
     // Main Frame
     console.log('pass');
     var main_frame=document.querySelector(".main_frame"); //new
@@ -126,12 +123,15 @@ function select_related_times(event_info,event_counter){
     let from_idx=calc_timeIdx(event_info["from_hour_value"], event_info["from_minute_value"]);
     let to_idx=calc_timeIdx(event_info["to_hour_value"],event_info["to_minute_value"]);
  
-
-    // Event 시간 영역 색칠하기
     let time_idx=from_idx; // 색칠 시작 포인트
 
     for (time_idx; time_idx < to_idx; time_idx++) {
         var selected_time_class=document.querySelector(return_className_from_Idx(time_idx));
+        
+        // 관련 event 사용여부 true
+        let clicked_event=find_event_state_para(selected_time_class.className);
+        event_use_state[clicked_event]=true;
+
         var color_code="event_color_"+String(event_counter);
         selected_time_class.style.backgroundColor= event_color[color_code];
     }
@@ -260,15 +260,6 @@ function register_event(event_info,event_counter,is_update){
 
 function make_eventInfo_fromLD(local_event_data){
     let event_array=local_event_data.split(',');
-    /*
-    ## Reference ##
-    let event_name=event_array[0];
-    let alarm_time=event_array[5];
-    let from_hour_value=event_array[1];
-    let from_minute_value=event_array[2];
-    let to_hour_value=event_array[3];
-    let to_minute_value=event_array[4];
-    */
 
     let event_info={
         "event_name":event_array[0],
