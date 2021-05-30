@@ -33,20 +33,17 @@ var event_color={
 };
 
 
-if (current_page=="index.html"){
+
+
     // Main Frame
     console.log('pass');
     var main_frame=document.querySelector(".main_frame"); //new
     console.log('main_frame',main_frame);
     var main_schedule=main_frame.querySelector(".js-Schedule"); 
     console.log('main_schedule',main_schedule);
-}else if(current_page=="detail.html"){
-    // Detail Frame
-  
-    var detail_frame=document.querySelector(".detail_frame");
-    var detail_schedule=document.querySelector(".js-Schedule");
 
-    var detail_frame__setting=detail_frame.querySelector(".js-Detail_frame__setting");
+    // Detail Frame
+    var detail_frame__setting=main_frame.querySelector(".js-Detail_frame__setting");
     var cancel_btn =detail_frame__setting.querySelector(".event_setting_cancel_buttons");
     var save_btn =detail_frame__setting.querySelector(".event_setting_save_buttons");
 
@@ -60,9 +57,7 @@ if (current_page=="index.html"){
     var to_minute=detail_frame__setting.querySelector(".event_setting__Minuete__To__option");
 
     var event_alarm=detail_frame__setting.querySelector(".event_setting__alarm_option");
-}else{
-    alert("[Warning] Unknowned Page");
-}
+
 
 
 // Scheduel 
@@ -215,6 +210,7 @@ function save_click(){
     }else{
         // Alarm 추가
     }
+    detail_setting.style.width = "0%";
 }
 
 function register_event(event_info,event_counter,is_update){
@@ -223,18 +219,11 @@ function register_event(event_info,event_counter,is_update){
     console.log("event_startTime_cls",event_startTime_cls)
     // 해당 Class 선택 
     // Main Schedule에서 선택
-    if (current_page=="index.html"){
         var startTime=main_schedule.querySelector(event_startTime_cls);
         console.log("startTime",startTime);
         var event_start_point=startTime.querySelector(".detail_event");
         console.log(event_start_point);
-    }else if(current_page=="detail.html"){
-        var startTime=detail_schedule.querySelector(event_startTime_cls);
-        var event_start_point=startTime.querySelector(".detail_event");
-    }else{
-        alert("[Warning] Unknowned Page");
-    }
-
+   
 
     // Detatil Schedule에서 선택
 
@@ -298,7 +287,7 @@ function save_data(){
 }
 
 function cancel_click(){
-    location.href = "index.html";
+    detail_setting.style.width = "0%";
 }
 
 function update_event()
@@ -327,17 +316,9 @@ function update_event()
 
 function init()
 {
-   
     update_event();
-
-    if (current_page=="index.html"){
-
-    }else if(current_page=="detail.html"){
-        save_btn.addEventListener("click", save_click);
-        cancel_btn.addEventListener("click", cancel_click);
-    }else{
-        alert("[Warning] Unknowned Page");
-    }
+    save_btn.addEventListener("click", save_click);
+    cancel_btn.addEventListener("click", cancel_click);
 }
 
 

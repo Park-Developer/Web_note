@@ -23,6 +23,121 @@
     </div>  
     
     <div class="main_frame">
+      <div class="js-Detail_frame__setting">
+        <h1 class="js-Detail_frame__title">Detail Setting</h1>
+    
+        <div class="event_setting">
+            <!--Event Name-->
+            <div class="event_setting__name">
+            <i class="far fa-calendar-check"></i>
+            <label for="name">Event Name</label>
+
+            <input type="text" class="event_setting__name_text" name="name" required
+                minlength="4" maxlength="8" size="10">
+            </div>
+
+            <!--Event Time-->
+            <div class="event_setting__time">
+                <i class="far fa-clock"></i>
+                
+                <div class="event_setting__time__From">
+                    <label>From</label>
+                    <select name="From_time" class="event_setting__Hour__From__option">
+                        <option>--Hour--</option>
+                        <option>6 AM</option>
+                        <option>7 AM</option>
+                        <option>8 AM</option>
+                        <option>9 AM</option>
+                        <option>9 AM</option>
+                        <option>11 AM</option>
+                        <option>12 PM</option>
+                        <option>1 PM</option>
+                        <option>2 PM</option>
+                        <option>3 PM</option>
+                        <option>4 PM</option>
+                        <option>5 PM</option>
+                        <option>6 PM</option>
+                        <option>7 PM</option>
+                        <option>8 PM</option>
+                        <option>9 PM</option>
+                        <option>10 PM</option>
+                        <option>11 PM</option>
+                    </select>
+                    <select name="From_time" class="event_setting__Minuete__From__option">
+                      <option>--Minutes--</option>
+                      <option>00</option>
+                      <option>10</option>
+                      <option>20</option>
+                      <option>30</option>
+                      <option>40</option>
+                      <option>50</option>     
+                  </select>
+                </div>
+
+                <div class="event_setting__time__To">
+                    <label>To</label>
+                    <select name="From_time" class="event_setting__Hour__To__option">
+                        <option>--Hour--</option>
+                        <option>6 AM</option>
+                        <option>7 AM</option>
+                        <option>8 AM</option>
+                        <option>9 AM</option>
+                        <option>9 AM</option>
+                        <option>11 AM</option>
+                        <option>12 PM</option>
+                        <option>1 PM</option>
+                        <option>2 PM</option>
+                        <option>3 PM</option>
+                        <option>4 PM</option>
+                        <option>5 PM</option>
+                        <option>6 PM</option>
+                        <option>7 PM</option>
+                        <option>8 PM</option>
+                        <option>9 PM</option>
+                        <option>10 PM</option>
+                        <option>11 PM</option>
+                    </select>
+                    <select name="From_time" class="event_setting__Minuete__To__option">
+                      <option>--Minutes--</option>
+                      <option>00</option>
+                      <option>10</option>
+                      <option>20</option>
+                      <option>30</option>
+                      <option>40</option>
+                      <option>50</option>     
+                  </select>
+                </div>
+
+            </div>
+
+        
+            <!--Event Alarm-->
+            <div class="event_setting__alarm">
+                <i class="fab fa-telegram"></i>
+                <label>Alarm</label>
+                <select name="Alarm" class="event_setting__alarm_option">
+                        <option>--Please choose an option--</option>
+                        <option>5 Minutes ago</option>
+                        <option>10 Minutes ago</option>
+                        <option>15 Minutes ago</option>
+                        <option>20 Minutes ago</option>
+                        <option>30 Minutes ago</option>
+                        <option>1 hour ago</option>
+                </select>
+            </div>
+            
+            <!--Event Detail Button-->
+            <input class="event_setting__detail" type="submit" value="Detail">
+
+             <!--Event Buttons-->
+            <div class="event_setting_buttons">
+                <input class="event_setting_cancel_buttons" type="submit" value="Cancel">
+                <input class="event_setting_save_buttons"type="submit" value="Save">
+            </div>
+            
+        </div>
+    </div>
+
         <!--Schedule-->
         <div class="js-Schedule">
           <span class="js-Schedule__Title">Schedule</span>
@@ -530,6 +645,7 @@
             <td class="detail_event"></td>
           </tr>
           </table>
+          <button class="js-Schedule__reset">reset</button>
         </div>
 
 

@@ -1,5 +1,8 @@
 const schedule_table=document.querySelector(".js-Schedule__Table");
 const past_Color="#808080"; // #808080 : Gray 
+const detail_setting=document.querySelector(".js-Detail_frame__setting");
+const reset_button=document.querySelector(".js-Schedule__reset");
+
 function check_priorTime(hours,minutes){
     var time;
     for (time = 6; time < 24; time++) {
@@ -65,16 +68,35 @@ function hour_change_color(hours){
 
 }
 
-function move_to_Detail(){
-    location.href = "detail.html";
+function set_event(){
+    //location.href = "detail.html";
+    detail_setting.style.width = "60%";
 }
 
+function reset_schedule(){
+    //localStorage에 저장되어 있는 Event reset
 
-function setClickEvent(){
+    for(let i=0; i<localStorage.length; i++) {
+        let key=localStorage.key(i);
+        if (key.indexOf("Event #")!=-1){
+            localStorage.removeItem(key);
+        }
+      }
+    
+      // Event Counter 초기화
+    localStorage.setItem("event_counter", "0");
+    location.href="index.html";
+}
+function set_reset_event(){
+    reset_button.addEventListener('click',reset_schedule);
+}
+
+function set_table_ClickEvent(){
     for(var i = 0; i < schedule_table.rows.length; i++) {
-        schedule_table.rows[i].cells[1].addEventListener('click',move_to_Detail);
+        schedule_table.rows[i].cells[1].addEventListener('click',set_event);
       }
 }
+
 
 
 function getTime(){
@@ -103,7 +125,8 @@ function getTime(){
   setInterval(getTime,1000);
 
   // Event 설정
-  setClickEvent();
+  set_table_ClickEvent();
+  set_reset_event();
 
   console.log('length',schedule_table.rows.length);
   console.log(schedule_table.rows[2].cells[1]);
