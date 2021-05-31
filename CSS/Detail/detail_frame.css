@@ -87,3 +87,11 @@ margin:30px;}
     transition: 0.5s;
     padding-top: 60px;
 }
+
+.event_modification{
+    margin-top: 30px;
+}
+
+.from_hour_Mod{
+    color:blue;
+}

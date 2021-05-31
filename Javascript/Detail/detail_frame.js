@@ -3,51 +3,22 @@ let is_alarm=false;
 let alarm_time=0;
 const selection_color="#000080";
 const event_number=20;
-console.log('loc',window.location.href);
 var temp=window.location.href.split('/');
 let current_page=temp[temp.length-1];
-console.log('current_page',current_page);
-// Event Color Setting
-var event_color={
-    event_color_1:"#FF3300", // 진한 주황
-    event_color_2:"#FFFF00", // 진한 노랑
-    event_color_3:"#00CC00", // 진한 연두
-    event_color_4:"#009999", // 진한 청록
-    event_color_5:"#0099FF" ,// 진한 하늘
-    event_color_6:"#0000FF", //진한 보라
-    event_color_8:"#FF0099", //진한 보라
-
-    event_color_9:"#FF6600",
-    event_color_10:"#FFFF33",
-    event_color_11:"#00FF00",
-    event_color_12:"#00CCCC",
-    event_color_13:"#00CCFF",
-    event_color_14:"#3366FF",
-    event_color_15:"#9933FF",
-    event_color_16:"#FF00FF",
-
-    event_color_17:"#FF9966",
-    event_color_18:"#FFFF99",
-    event_color_19:"#99FF99",
-    event_color_20:"#66FFCC"
-};
 
     // Main Frame
-    console.log('pass');
     var main_frame=document.querySelector(".main_frame"); //new
-    console.log('main_frame',main_frame);
     var main_schedule=main_frame.querySelector(".js-Schedule"); 
-    console.log('main_schedule',main_schedule);
 
-    // Detail Frame
+    // Detail Frame Setting
     var detail_frame__setting=main_frame.querySelector(".js-Detail_frame__setting");
     var cancel_btn =detail_frame__setting.querySelector(".event_setting_cancel_buttons");
     var save_btn =detail_frame__setting.querySelector(".event_setting_save_buttons");
 
-    // Event Name
+    // Event Name Setting
     var event_name =detail_frame__setting.querySelector(".event_setting__name_text");
 
-    //Event Time
+    //Event Time Setting
     var from_hour=detail_frame__setting.querySelector(".event_setting__Hour__From__option");
     var from_minute=detail_frame__setting.querySelector(".event_setting__Minuete__From__option");
     var to_hour=detail_frame__setting.querySelector(".event_setting__Hour__To__option");
@@ -55,6 +26,23 @@ var event_color={
 
     var event_alarm=detail_frame__setting.querySelector(".event_setting__alarm_option");
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    // Detail Frame Modification
+    var detail_frame__modification=main_frame.querySelector(".js-Detail_frame__modification");
+    var cancel_btn_Mod =detail_frame__modification.querySelector(".event_modification_cancel_buttons");
+    var modify_btn_Mod =detail_frame__modification.querySelector(".event_modification_modify_buttons");
+    
+    // Event Name Modification
+    var event_name_Mod =detail_frame__modification.querySelector(".event_modificaiton__name_text");
+    
+    //Event Time Modification
+    var from_hour_Mod=detail_frame__modification.querySelector(".event_modification__Hour__From__option");
+    var from_minute_Mod=detail_frame__modification.querySelector(".event_modification__Minuete__From__option");
+    var to_hour_Mod=detail_frame__modification.querySelector(".event_modification__Hour__To__option");
+    var to_minute_Mod=detail_frame__modification.querySelector(".event_modification__Minuete__To__option");
+
+    var event_alarm=detail_frame__setting.querySelector(".event_modification__alarm_option");    
 
 
 // Scheduel 
@@ -216,15 +204,11 @@ function save_click(){
 function register_event(event_info,event_counter,is_update){
     // Class Name 확인
     var event_startTime_cls=extract_time_class_Info(event_info["from_hour_value"],event_info["from_minute_value"]);
-    console.log("event_startTime_cls",event_startTime_cls)
     // 해당 Class 선택 
     // Main Schedule에서 선택
         var startTime=main_schedule.querySelector(event_startTime_cls);
-        console.log("startTime",startTime);
         var event_start_point=startTime.querySelector(".detail_event");
-        console.log(event_start_point);
-   
-
+        
     // Detatil Schedule에서 선택
 
 
@@ -233,7 +217,7 @@ function register_event(event_info,event_counter,is_update){
     let from_idx=calc_timeIdx(event_info["from_hour_value"],event_info["from_minute_value"]);
     let to_idx=calc_timeIdx(event_info["to_hour_value"], event_info["to_minute_value"]);
     let span_number=(to_idx-from_idx);
-    console.log(" event_start_point", event_start_point);
+   
     event_start_point.setAttribute("rowspan", span_number); 
 
     // Event명 & Alarm 기록
@@ -281,6 +265,14 @@ function cancel_click(){
     detail_setting.style.width = "0%";
 }
 
+function modification_click(){
+
+}
+
+function Mod_cancel_click(){
+    detail_modification.style.width = "0%";
+}
+
 function update_event()
 {
     // Event Counter 설정
@@ -299,7 +291,6 @@ function update_event()
             let event_info = make_eventInfo_fromLD(data);
             let is_update=true;
             register_event(event_info,event_counter,is_update);
-        
         }
       }
     localStorage.setItem("event_counter", event_counter);
@@ -308,8 +299,13 @@ function update_event()
 function init()
 {
     update_event();
+    // Register Button Setting
     save_btn.addEventListener("click", save_click);
     cancel_btn.addEventListener("click", cancel_click);
+
+    // Modificaiotn Button Setting
+    cancel_btn_Mod.addEventListener("click", Mod_cancel_click);
+    modify_btn_Mod.addEventListener("click", modification_click);
 }
 
 

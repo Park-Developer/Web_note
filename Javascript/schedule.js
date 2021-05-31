@@ -5,8 +5,6 @@ const detail_modification=document.querySelector(".js-Detail_frame__modification
 
 const reset_button=document.querySelector(".js-Schedule__reset");
 
-const event_frame_open_width="60%";
-const event_frame_close_width="0%";
 let event_use_state={
     // AM 6 Setting
     "AM_From_0600_To_0610" :false,
@@ -135,6 +133,7 @@ let event_use_state={
     "PM_From_1140_To_1150" :false,
     "PM_From_1150_To_1200" :false,
 }
+
 function check_priorTime(hours,minutes){
     var time;
     for (time = 6; time < 24; time++) {
@@ -144,9 +143,7 @@ function check_priorTime(hours,minutes){
             minute_change_color(hours,minutes);
             break;
         }
-        
       }
-      
 }
 
 function minute_change_color(hours,minutes){
@@ -190,7 +187,6 @@ function hour_change_color(hours){
         }
     }
  
-  
     var hour_cls1=`.row_th_${hour}${time_type}`;
     var current_hours=document.querySelectorAll(hour_cls1);
     
@@ -198,15 +194,126 @@ function hour_change_color(hours){
 
 }
 
-function modify_event(){
+function modify_event(clicked_event_class){
     detail_modification.style.width = event_frame_open_width;
     detail_setting.style.width = event_frame_close_width;
+    
+    let target_event_data=find_event_from_Time(clicked_event_class).split(",");
+
+    console.log(event_name_Mod,"event_name_Mod");
+    //Registered Event Name
+    event_name_Mod.value=target_event_data[0];
+    
+    //Registered Event Time
+    from_hour_Mod.options[0].text=target_event_data[1];
+    from_minute_Mod.options[0].text=target_event_data[2];
+    to_hour_Mod.options[0].text=target_event_data[3];
+    to_minute_Mod.options[0].text=target_event_data[4];
 }
+
+function calc_time_value(is_PM,hour,minute){
+    let calced_hour;
+    let calced_minute;
+    let time_value;
+
+    if (Number.isInteger(hour)==false){
+        hour=parseInt(hour);
+    }
+
+    if (Number.isInteger(minute)==false){
+        minute=parseInt(minute);
+    }
+
+    if (is_PM==true && hour!=12){
+        calced_hour=12+hour;
+    }else{
+        calced_hour=hour;
+    }
+    calced_minute=minute/100;
+
+    time_value=calced_hour+calced_minute;
+    
+    return time_value;
+
+}
+
+function find_event_from_Time(event_class_name){
+    let regex = /[^0-9]/g;
+    let key;
+    let event_data;
+    let temp;
+    let event_From_hour;
+    let event_From_minute;
+    let event_To_hour;
+    let event_To_minute;
+    let from_time=0;
+    let to_time=0;
+    let is_PM=false;
+    
+    ///////
+    let temp1 = event_class_name;
+    let temp2 = temp1.split(' ');
+    let cls_name=temp2[1];
+    console.log("cls_name",cls_name);
+    let target_event_time = cls_name.split("_");
+
+    let target_event_hour = parseInt(target_event_time[1].replace(regex,""));
+    let target_event_minute = parseInt(target_event_time[2].replace(regex,""));
+
+    if (cls_name.indexOf("pm")!=-1 && target_event_hour!=12){
+        target_event_hour+=12;
+    }
+    
+    Comparison_time=target_event_hour+(target_event_minute/100);
+
+    ////////
+
+    for(let i=0; i<localStorage.length; i++) {
+        key=localStorage.key(i);
+        if (key.indexOf("Event #")!=-1){
+            event_data=localStorage[key];
+            temp=event_data.split(",");
+            console.log(temp);
+            
+            // From Time 계산
+            if (temp[1].indexOf("PM")!=-1){
+                is_PM=true;
+            }else{
+                is_PM=false;
+            }
+
+            event_From_hour=parseInt(temp[1].replace(regex, ""));
+            event_From_minute=parseInt(temp[2].replace(regex, ""));
+
+            from_time=calc_time_value(is_PM,event_From_hour,event_From_minute);
+
+            // To Hour 계산
+            if (temp[3].indexOf("PM")!=-1){
+                is_PM=true;
+            }else{
+                is_PM=false;
+            }
+
+            event_To_hour=parseInt(temp[3].replace(regex, ""));
+            event_To_minute=parseInt(temp[4].replace(regex, ""));
+
+            to_time=calc_time_value(is_PM,event_To_hour,event_To_minute);
+
+            if (Comparison_time>=from_time && Comparison_time<=to_time){
+                return event_data;
+                break;
+            }
+       }
+    }
+}
+
+
 
 function set_event(){
     detail_setting.style.width = event_frame_open_width;
     detail_modification.style.width = event_frame_close_width;
 }
+
 function find_event_state_para(class_name){
     let temp1 = class_name;
     let temp2 = temp1.split(' ');
@@ -261,10 +368,10 @@ function find_event_state_para(class_name){
 
 
 function table_click_event(){
-    let clicked_event=find_event_state_para(event.target.parentNode.className);
-
-    if (event_use_state[clicked_event]==true){
-        modify_event();
+    let clicked_event_class=find_event_state_para(event.target.parentNode.className);
+   
+    if (event_use_state[clicked_event_class]==true){
+        modify_event(event.target.parentNode.className);
     }else{
         set_event();
     }
@@ -324,12 +431,9 @@ function getTime(){
     }else{
         
     }
-
   }  
   
-
-
-  function init(){
+function init(){
   // 시간표시
   getTime();
   setInterval(getTime,1000);
@@ -337,11 +441,6 @@ function getTime(){
   // Event 설정
   set_table_ClickEvent();
   set_reset_event();
-
-  console.log('length',schedule_table.rows.length);
-  console.log(schedule_table.rows[2].cells[1]);
-
 }
-  
-  init();
-  
+
+init();
