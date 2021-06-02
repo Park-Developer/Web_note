@@ -6,132 +6,138 @@ const detail_modification=document.querySelector(".js-Detail_frame__modification
 const reset_button=document.querySelector(".js-Schedule__reset");
 
 let event_use_state={
+    /*
+    0 : Not Use
+    N : Event Number
+     */
+
     // AM 6 Setting
-    "AM_From_0600_To_0610" :false,
-    "AM_From_0610_To_0620" :false,
-    "AM_From_0620_To_0630" :false,
-    "AM_From_0630_To_0640" :false,
-    "AM_From_0640_To_0650" :false,
-    "AM_From_0650_To_0700" :false,
+    "AM_From_0600_To_0610" :0,
+    "AM_From_0610_To_0620" :0,
+    "AM_From_0620_To_0630" :0,
+    "AM_From_0630_To_0640" :0,
+    "AM_From_0640_To_0650" :0,
+    "AM_From_0650_To_0700" :0,
     // AM 7 Setting
-    "AM_From_0700_To_0710" :false,
-    "AM_From_0710_To_0720" :false,
-    "AM_From_0720_To_0730" :false,
-    "AM_From_0730_To_0740" :false,
-    "AM_From_0740_To_0750" :false,
-    "AM_From_0750_To_0800" :false,
+    "AM_From_0700_To_0710" :0,
+    "AM_From_0710_To_0720" :0,
+    "AM_From_0720_To_0730" :0,
+    "AM_From_0730_To_0740" :0,
+    "AM_From_0740_To_0750" :0,
+    "AM_From_0750_To_0800" :0,
     // AM 8 Setting
-    "AM_From_0800_To_0810" :false,
-    "AM_From_0810_To_0820" :false,
-    "AM_From_0820_To_0830" :false,
-    "AM_From_0830_To_0840" :false,
-    "AM_From_0840_To_0850" :false,
-    "AM_From_0850_To_0900" :false,
+    "AM_From_0800_To_0810" :0,
+    "AM_From_0810_To_0820" :0,
+    "AM_From_0820_To_0830" :0,
+    "AM_From_0830_To_0840" :0,
+    "AM_From_0840_To_0850" :0,
+    "AM_From_0850_To_0900" :0,
     // AM 9 Setting
-    "AM_From_0900_To_0910" :false,
-    "AM_From_0910_To_0920" :false,
-    "AM_From_0920_To_0930" :false,
-    "AM_From_0930_To_0940" :false,
-    "AM_From_0940_To_0950" :false,
-    "AM_From_0950_To_1000" :false,
+    "AM_From_0900_To_0910" :0,
+    "AM_From_0910_To_0920" :0,
+    "AM_From_0920_To_0930" :0,
+    "AM_From_0930_To_0940" :0,
+    "AM_From_0940_To_0950" :0,
+    "AM_From_0950_To_1000" :0,
     // AM 10 Setting
-    "AM_From_1000_To_1010" :false,
-    "AM_From_1010_To_1020" :false,
-    "AM_From_1020_To_1030" :false,
-    "AM_From_1030_To_1040" :false,
-    "AM_From_1040_To_1050" :false,
-    "AM_From_1050_To_1100" :false,
+    "AM_From_1000_To_1010" :0,
+    "AM_From_1010_To_1020" :0,
+    "AM_From_1020_To_1030" :0,
+    "AM_From_1030_To_1040" :0,
+    "AM_From_1040_To_1050" :0,
+    "AM_From_1050_To_1100" :0,
     // AM 11 Setting
-    "AM_From_1100_To_1110" :false,
-    "AM_From_1110_To_1120" :false,
-    "AM_From_1120_To_1130" :false,
-    "AM_From_1130_To_1140" :false,
-    "AM_From_1140_To_1150" :false,
-    "AM_From_1150_To_1200" :false,
+    "AM_From_1100_To_1110" :0,
+    "AM_From_1110_To_1120" :0,
+    "AM_From_1120_To_1130" :0,
+    "AM_From_1130_To_1140" :0,
+    "AM_From_1140_To_1150" :0,
+    "AM_From_1150_To_1200" :0,
+    
     // PM 12 Setting
-    "PM_From_1200_To_1210" :false,
-    "PM_From_1210_To_1220" :false,
-    "PM_From_1220_To_1230" :false,
-    "PM_From_1230_To_1240" :false,
-    "PM_From_1240_To_1250" :false,
-    "PM_From_1250_To_0100" :false,
+    "PM_From_1200_To_1210" :0,
+    "PM_From_1210_To_1220" :0,
+    "PM_From_1220_To_1230" :0,
+    "PM_From_1230_To_1240" :0,
+    "PM_From_1240_To_1250" :0,
+    "PM_From_1250_To_0100" :0,
     // PM 1 Setting
-    "PM_From_0100_To_0110" :false,
-    "PM_From_0110_To_0120" :false,
-    "PM_From_0120_To_0130" :false,
-    "PM_From_0130_To_0140" :false,
-    "PM_From_0140_To_0150" :false,
-    "PM_From_0150_To_0200" :false,
+    "PM_From_0100_To_0110" :0,
+    "PM_From_0110_To_0120" :0,
+    "PM_From_0120_To_0130" :0,
+    "PM_From_0130_To_0140" :0,
+    "PM_From_0140_To_0150" :0,
+    "PM_From_0150_To_0200" :0,
     // PM 2 Setting
-    "PM_From_0200_To_0210" :false,
-    "PM_From_0210_To_0220" :false,
-    "PM_From_0220_To_0230" :false,
-    "PM_From_0230_To_0240" :false,
-    "PM_From_0240_To_0250" :false,
-    "PM_From_0250_To_0300" :false,
+    "PM_From_0200_To_0210" :0,
+    "PM_From_0210_To_0220" :0,
+    "PM_From_0220_To_0230" :0,
+    "PM_From_0230_To_0240" :0,
+    "PM_From_0240_To_0250" :0,
+    "PM_From_0250_To_0300" :0,
     // PM 3 Setting
-    "PM_From_0300_To_0310" :false,
-    "PM_From_0310_To_0320" :false,
-    "PM_From_0320_To_0330" :false,
-    "PM_From_0330_To_0340" :false,
-    "PM_From_0340_To_0350" :false,
-    "PM_From_0350_To_0400" :false,
+    "PM_From_0300_To_0310" :0,
+    "PM_From_0310_To_0320" :0,
+    "PM_From_0320_To_0330" :0,
+    "PM_From_0330_To_0340" :0,
+    "PM_From_0340_To_0350" :0,
+    "PM_From_0350_To_0400" :0,
     // PM 4 Setting
-    "PM_From_0400_To_0410" :false,
-    "PM_From_0410_To_0420" :false,
-    "PM_From_0420_To_0430" :false,
-    "PM_From_0430_To_0440" :false,
-    "PM_From_0440_To_0450" :false,
-    "PM_From_0450_To_0500" :false,
+    "PM_From_0400_To_0410" :0,
+    "PM_From_0410_To_0420" :0,
+    "PM_From_0420_To_0430" :0,
+    "PM_From_0430_To_0440" :0,
+    "PM_From_0440_To_0450" :0,
+    "PM_From_0450_To_0500" :0,
     // PM 5 Setting
-    "PM_From_0500_To_0510" :false,
-    "PM_From_0510_To_0520" :false,
-    "PM_From_0520_To_0530" :false,
-    "PM_From_0530_To_0540" :false,
-    "PM_From_0540_To_0550" :false,
-    "PM_From_0550_To_0600" :false,
+    "PM_From_0500_To_0510" :0,
+    "PM_From_0510_To_0520" :0,
+    "PM_From_0520_To_0530" :0,
+    "PM_From_0530_To_0540" :0,
+    "PM_From_0540_To_0550" :0,
+    "PM_From_0550_To_0600" :0,
     // PM 6 Setting
-    "PM_From_0600_To_0610" :false,
-    "PM_From_0610_To_0620" :false,
-    "PM_From_0620_To_0630" :false,
-    "PM_From_0630_To_0640" :false,
-    "PM_From_0640_To_0650" :false,
-    "PM_From_0650_To_0700" :false,
+    "PM_From_0600_To_0610" :0,
+    "PM_From_0610_To_0620" :0,
+    "PM_From_0620_To_0630" :0,
+    "PM_From_0630_To_0640" :0,
+    "PM_From_0640_To_0650" :0,
+    "PM_From_0650_To_0700" :0,
     // PM 7 Setting
-    "PM_From_0700_To_0710" :false,
-    "PM_From_0710_To_0720" :false,
-    "PM_From_0720_To_0730" :false,
-    "PM_From_0730_To_0740" :false,
-    "PM_From_0740_To_0750" :false,
-    "PM_From_0750_To_0800" :false,
+    "PM_From_0700_To_0710" :0,
+    "PM_From_0710_To_0720" :0,
+    "PM_From_0720_To_0730" :0,
+    "PM_From_0730_To_0740" :0,
+    "PM_From_0740_To_0750" :0,
+    "PM_From_0750_To_0800" :0,
     // PM 8 Setting
-    "PM_From_0800_To_0810" :false,
-    "PM_From_0810_To_0820" :false,
-    "PM_From_0820_To_0830" :false,
-    "PM_From_0830_To_0840" :false,
-    "PM_From_0840_To_0850" :false,
-    "PM_From_0850_To_0900" :false,
+    "PM_From_0800_To_0810" :0,
+    "PM_From_0810_To_0820" :0,
+    "PM_From_0820_To_0830" :0,
+    "PM_From_0830_To_0840" :0,
+    "PM_From_0840_To_0850" :0,
+    "PM_From_0850_To_0900" :0,
     // PM 9 Setting
-    "PM_From_0900_To_0910" :false,
-    "PM_From_0910_To_0920" :false,
-    "PM_From_0920_To_0930" :false,
-    "PM_From_0930_To_0940" :false,
-    "PM_From_0940_To_0950" :false,
-    "PM_From_0950_To_1000" :false,
+    "PM_From_0900_To_0910" :0,
+    "PM_From_0910_To_0920" :0,
+    "PM_From_0920_To_0930" :0,
+    "PM_From_0930_To_0940" :0,
+    "PM_From_0940_To_0950" :0,
+    "PM_From_0950_To_1000" :0,
     // PM 10 Setting
-    "PM_From_1000_To_1010" :false,
-    "PM_From_1010_To_1020" :false,
-    "PM_From_1020_To_1030" :false,
-    "PM_From_1030_To_1040" :false,
-    "PM_From_1040_To_1050" :false,
-    "PM_From_1050_To_1100" :false,
+    "PM_From_1000_To_1010" :0,
+    "PM_From_1010_To_1020" :0,
+    "PM_From_1020_To_1030" :0,
+    "PM_From_1030_To_1040" :0,
+    "PM_From_1040_To_1050" :0,
+    "PM_From_1050_To_1100" :0,
     // PM 11 Setting
-    "PM_From_1100_To_1110" :false,
-    "PM_From_1110_To_1120" :false,
-    "PM_From_1120_To_1130" :false,
-    "PM_From_1130_To_1140" :false,
-    "PM_From_1140_To_1150" :false,
-    "PM_From_1150_To_1200" :false,
+    "PM_From_1100_To_1110" :0,
+    "PM_From_1110_To_1120" :0,
+    "PM_From_1120_To_1130" :0,
+    "PM_From_1130_To_1140" :0,
+    "PM_From_1140_To_1150" :0,
+    "PM_From_1150_To_1200" :0,
 }
 
 function check_priorTime(hours,minutes){
@@ -198,7 +204,10 @@ function modify_event(clicked_event_class){
     detail_modification.style.width = event_frame_open_width;
     detail_setting.style.width = event_frame_close_width;
     
-    let target_event_data=find_event_from_Time(clicked_event_class).split(",");
+    let target_event_data=find_event_from_Time(clicked_event_class)[0].split(",");
+
+  
+
 
     console.log(event_name_Mod,"event_name_Mod");
     //Registered Event Name
@@ -264,7 +273,7 @@ function find_event_from_Time(event_class_name){
         target_event_hour+=12;
     }
     
-    Comparison_time=target_event_hour+(target_event_minute/100);
+    let Comparison_time=target_event_hour+(target_event_minute/100);
 
     ////////
 
@@ -300,14 +309,13 @@ function find_event_from_Time(event_class_name){
             to_time=calc_time_value(is_PM,event_To_hour,event_To_minute);
 
             if (Comparison_time>=from_time && Comparison_time<=to_time){
-                return event_data;
+                return [event_data,key];
                 break;
             }
        }
     }
+    return [undefined,undefined];
 }
-
-
 
 function set_event(){
     detail_setting.style.width = event_frame_open_width;
@@ -368,11 +376,16 @@ function find_event_state_para(class_name){
 
 
 function table_click_event(){
+    console.log("event.target.parentNode.className",event.target.parentNode.className);
     let clicked_event_class=find_event_state_para(event.target.parentNode.className);
-   
-    if (event_use_state[clicked_event_class]==true){
+    console.log("(event_use_state[clicked_event_class]",(event_use_state[clicked_event_class]));
+    
+    if (event_use_state[clicked_event_class]!=0){
+        console.log("event modification");
         modify_event(event.target.parentNode.className);
+        
     }else{
+        console.log("event setting");
         set_event();
     }
 }
@@ -387,9 +400,18 @@ function reset_schedule(){
         }
       }
     
-      // Event Counter 초기화
+    // Event Counter 초기화
     localStorage.setItem("event_counter", "0");
+
+    let state_obj_size = Object.keys(event_use_state).length;
+    let k=0;
+
+    for (k=0;k<state_obj_size;k++){
+        Object.values(event_use_state)[k]=0;
+    }
+
     location.href="index.html";
+
 }
 function set_reset_event(){
     reset_button.addEventListener('click',reset_schedule);

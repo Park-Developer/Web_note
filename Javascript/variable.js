@@ -1,6 +1,7 @@
 // Schedule Setting
 const event_frame_open_width="60%";
 const event_frame_close_width="0%";
+const basic_schedule_color="#778899";
 
 // Event Color Setting
 var event_color={

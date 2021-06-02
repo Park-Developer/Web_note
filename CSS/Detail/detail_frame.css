@@ -95,3 +95,18 @@ margin:30px;}
 .from_hour_Mod{
     color:blue;
 }
+
+.event_modification__name{
+    margin-left: 10px;
+    display: flex; 
+}
+.event_modification__time{
+    margin-left: 10px;
+    display: flex;
+}
+.event_modification__time__From{
+    display: flex;
+}
+.event_modification__time__To{
+    display: flex;
+}
