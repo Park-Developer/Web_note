@@ -18,22 +18,18 @@ var btn1_state=false;
 var btn2_state=false;
 var btn3_state=false;
 
-var current_activate_btn=0; //현재 작업중인 버튼 
+//let current_activate_btn=0; //현재 작업중인 버튼 
 
 
 // Text Area Setting 
 const memo_font_color="	#000000";
 const memo_activated_color="#FDFD96";
 const memo_deactivated_color="#FFFFFF";
+
 let keysDown = {};
 
 function Btn_list_setting()
 {
-    // [Common Setting] 
-    Memo_btn1.style.background= deactivated_color;
-    Memo_btn2.style.background= deactivated_color;
-    Memo_btn3.style.background= deactivated_color;
-
     Memo_btn1.addEventListener("click",Btn1_click);
     Memo_btn2.addEventListener("click",Btn2_click);
     Memo_btn3.addEventListener("click",Btn3_click);
@@ -58,70 +54,60 @@ function Btn3_setting()
     
 }
 
-function save_cur_data(current_activate_btn)
+function change_Button_color(clicked_btn)
 {
+    console.log("change_Button_color",clicked_btn);
+    if (clicked_btn==1){
+        Memo_btn1.style.background=btn1_activate_color;
+        Memo_btn2.style.background= deactivated_color;
+        Memo_btn3.style.background= deactivated_color;
+    }else if(clicked_btn==2){
+        Memo_btn2.style.background=btn2_activate_color;
+        Memo_btn1.style.background= deactivated_color;
+        Memo_btn3.style.background= deactivated_color;
+    }else if(clicked_btn==3){    
+        Memo_btn3.style.background=btn3_activate_color;
+        Memo_btn2.style.background= deactivated_color;
+        Memo_btn1.style.background= deactivated_color;
+    }
+    else{
+        alert("[Error] Memo color Error!!")
+    }
+}
+
+function save_cur_data()
+{   
+    let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
+    console.log("current_activate_btn",current_activate_btn);
     if (current_activate_btn==1){
         localStorage.setItem("memo1",Memo_area.value);
     }else if (current_activate_btn==2){
         localStorage.setItem("memo2",Memo_area.value);
-    }else{
+    }else if (current_activate_btn==3){
         localStorage.setItem("memo3",Memo_area.value);
+    }else{
+     //   alert("current activatged button Error");
     }
+    
 
+    localStorage.setItem("memo_Btn",String(current_activate_btn));
 }
 
 function change_btn_state(clicked_btn){
-    if (clicked_btn==1){
-        btn1_state=true;
-        btn2_state=false;
-        btn3_state=false;
+    console.log("change_btn_state",clicked_btn);
+    let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     
-        // 색 변경
-        Memo_btn1.style.background=btn1_activate_color;
-        Memo_btn2.style.background= deactivated_color;
-        Memo_btn3.style.background= deactivated_color;
-
-        // 현재 작성하던 메모 내용 저장하기
-        save_cur_data(current_activate_btn);
-        current_activate_btn=1;
-
-       
-        Memo_area.value= localStorage.getItem('memo1');
-
-        
-    }else if(clicked_btn==2){
-        btn1_state=false;
-        btn2_state=true;
-        btn3_state=false;
+    // 현재 데이터 저장히기
+    save_cur_data(current_activate_btn);
     
-        Memo_btn2.style.background=btn2_activate_color;
-        Memo_btn1.style.background= deactivated_color;
-        Memo_btn3.style.background= deactivated_color;
+    // Memo Button 색 변경
+    change_Button_color(clicked_btn);
 
-         // Local Storage에서 데이터 불러오기
-         save_cur_data(current_activate_btn);
-         current_activate_btn=2;
+    // Click한 버튼번호로 변경
+    localStorage.setItem("memo_Btn",String(clicked_btn));
 
-        Memo_area.value= localStorage.getItem('memo2');
-
-    }else
-    {   btn1_state=true;
-        btn2_state=false;
-        btn3_state=true;
-    
-        Memo_btn3.style.background=btn3_activate_color;
-        Memo_btn2.style.background= deactivated_color;
-        Memo_btn1.style.background= deactivated_color;
-        
-        // Local Storage에서 데이터 불러오기
-        save_cur_data(current_activate_btn);
-        current_activate_btn=3;
-
-        Memo_area.value= localStorage.getItem('memo3');
-
-    }
-
-        
+    let memo_data="memo"+String(clicked_btn);
+    Memo_area.value= localStorage.getItem(memo_data);
 
 }
 
@@ -161,6 +147,7 @@ function shortkey_run_n_save(event, keysDown){
 
 function text_focus_out()
 {
+    let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     event.target.style.background =memo_deactivated_color;
     save_cur_data(current_activate_btn);
     
@@ -194,12 +181,34 @@ function text_area_Setting(){
     Memo_area.placeholder="sd";   
 }
 
+function update_memo(){
+    console.log("update_memo");
+    let stored_activated_btn=localStorage.getItem('memo_Btn');
+    let current_activate_btn;
+    
+    
+    if(stored_activated_btn=="undefined"){
+        console.log("update_memo11",stored_activated_btn);
+        // 정의되어 있지 않으면 1로 초기화
+        localStorage.setItem('memo_Btn',"1"); 
+        current_activate_btn=1;
+    }else{
+        console.log("update_memo22",stored_activated_btn);
+        current_activate_btn=parseInt(stored_activated_btn);
+        console.log("current_activate_btn",current_activate_btn);
+        let memo_data="memo"+String(current_activate_btn);
+        Memo_area.value= localStorage.getItem(memo_data);
+    }
+    
+    change_btn_state(current_activate_btn);
+}
+
 function init(){
-  
+    update_memo();
     Btn_list_setting();
     text_area_Setting();
-    // Memo_area= Memo.querySelector(".memo_content");
-    setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
+ 
+  setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
     
 }
 

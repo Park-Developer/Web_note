@@ -201,15 +201,14 @@ function hour_change_color(hours){
 }
 
 function modify_event(clicked_event_class){
+    console.log("modify_event",clicked_event_class);
+
+    // 창 크기 조정
     detail_modification.style.width = event_frame_open_width;
     detail_setting.style.width = event_frame_close_width;
-    
+    console.log("[Debug] find evet",find_event_from_Time(clicked_event_class));
     let target_event_data=find_event_from_Time(clicked_event_class)[0].split(",");
 
-  
-
-
-    console.log(event_name_Mod,"event_name_Mod");
     //Registered Event Name
     event_name_Mod.value=target_event_data[0];
     
@@ -259,7 +258,6 @@ function find_event_from_Time(event_class_name){
     let to_time=0;
     let is_PM=false;
     
-    ///////
     let temp1 = event_class_name;
     let temp2 = temp1.split(' ');
     let cls_name=temp2[1];
@@ -274,8 +272,6 @@ function find_event_from_Time(event_class_name){
     }
     
     let Comparison_time=target_event_hour+(target_event_minute/100);
-
-    ////////
 
     for(let i=0; i<localStorage.length; i++) {
         key=localStorage.key(i);
@@ -317,12 +313,41 @@ function find_event_from_Time(event_class_name){
     return [undefined,undefined];
 }
 
-function set_event(){
+function set_event(target_event_clsName){
+    console.log("set_event",target_event_clsName);
+    let time_info=target_event_clsName.split(" ")[1]
+
+    let regex = /[^0-9]/g;	
+
     detail_setting.style.width = event_frame_open_width;
     detail_modification.style.width = event_frame_close_width;
+    
+    let hour_int;
+    let minute_int;
+
+    // Hour Setting
+    if (time_info.indexOf("am")!=-1){
+        hour_int =time_info.split("am")[0].replace(regex,"");
+        minute_int= time_info.split("am")[1].replace(regex,"");
+
+        from_hour.value=hour_int+" AM";
+    }else{
+        hour_int =time_info.split("pm")[0].replace(regex,"");
+        minute_int= time_info.split("pm")[1].replace(regex,"");
+
+        from_hour.value=hour_int+" PM";
+    }
+
+    // Minute Setting
+    if (minute_int=="0"){
+        minute_int="00";
+    }
+    from_minute.value=minute_int;
+ 
 }
 
 function find_event_state_para(class_name){
+    console.log("find_event_state_para",class_name);
     let temp1 = class_name;
     let temp2 = temp1.split(' ');
     let cls_name=temp2[1];
@@ -366,9 +391,7 @@ function find_event_state_para(class_name){
     if (Number(next_hour)<10){
         next_hour="0"+next_hour;
     }
-    if (Number(next_minute)<10){
-        next_minute="0"+next_minute;
-    }
+  
 
     let clicked_event=time_zone+"_From_"+hour+minute+"_To_"+next_hour+next_minute;
     return clicked_event;
@@ -378,19 +401,21 @@ function find_event_state_para(class_name){
 function table_click_event(){
     console.log("event.target.parentNode.className",event.target.parentNode.className);
     let clicked_event_class=find_event_state_para(event.target.parentNode.className);
-    console.log("(event_use_state[clicked_event_class]",(event_use_state[clicked_event_class]));
+ 
+    let target_event_clsName=event.target.parentNode.className;
     
     if (event_use_state[clicked_event_class]!=0){
         console.log("event modification");
-        modify_event(event.target.parentNode.className);
+        modify_event(target_event_clsName);
         
     }else{
         console.log("event setting");
-        set_event();
+        set_event(target_event_clsName);
     }
 }
 
 function reset_schedule(){
+    console.log("reset_schedule",reset_schedule);
     //localStorage에 저장되어 있는 Event reset
 
     for(let i=0; i<localStorage.length; i++) {

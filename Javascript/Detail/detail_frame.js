@@ -253,6 +253,12 @@ function save_click(){
         // Alarm 추가
     }
     detail_setting.style.width = "0%";
+
+
+    //Clear Setting Event Name
+    event_name.value="";
+
+
 }
 
 function register_event(event_info,event_counter,is_update){
