@@ -6,25 +6,13 @@ const Memo = document.querySelector(".js-Memo"),
       Memo_btn3= Memo.querySelector(".js-Memo__Button_3"),
       Memo_area= Memo.querySelector(".js-Memo_contents");
 
-// Button Color
-const deactivated_color="#696969";
+let Edit_Activation=true; // 편집가능 상태
 
-const btn1_activate_color="#000080"
-const btn2_activate_color="#FFA500";
-const btn3_activate_color="#008000";
 
 // Button State
 var btn1_state=false;  
 var btn2_state=false;
 var btn3_state=false;
-
-//let current_activate_btn=0; //현재 작업중인 버튼 
-
-
-// Text Area Setting 
-const memo_font_color="	#000000";
-const memo_activated_color="#FDFD96";
-const memo_deactivated_color="#FFFFFF";
 
 let keysDown = {};
 
@@ -128,29 +116,33 @@ function Btn3_click()
 }
 
 function text_focusing(event){
+    console.log("text_focusing");
+    Edit_Activation=true;
     Memo_area.style.background =memo_activated_color;
-  
+    
     //Memo_area.focus();
     //Memo_area.setstart(0,0); // 첫줄부터 시작
 
 }
 
 function shortkey_run_n_save(event, keysDown){
-
+    let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     if (keysDown["Control"] && keysDown["Enter"]) {
         //do what you want when control and a is pressed for example
         save_cur_data(current_activate_btn); // 현재 데이터 저장
         // 여기에 마크업  변환 함수 넣기
         console.log("run and save");
+        Edit_Activation=false;
       }
 }
 
 function text_focus_out()
 {
+    console.log("text_focus_out");
     let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     event.target.style.background =memo_deactivated_color;
     save_cur_data(current_activate_btn);
-    
+    Edit_Activation=false;
 }
 
 function keydown(event){
@@ -203,11 +195,14 @@ function update_memo(){
     change_btn_state(current_activate_btn);
 }
 
+
+
+
 function init(){
     update_memo();
     Btn_list_setting();
     text_area_Setting();
- 
+  
   setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
     
 }

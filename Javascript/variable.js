@@ -1,4 +1,7 @@
-// Schedule Setting
+/*####################################################
+Schedule Setting
+#####################################################*/
+
 const event_frame_open_width="60%";
 const event_frame_close_width="0%";
 const basic_schedule_color="#778899";
@@ -27,3 +30,49 @@ var event_color={
     event_color_19:"#99FF99",
     event_color_20:"#66FFCC"
 };
+
+/*####################################################
+Memo Setting
+#####################################################*/
+
+// md header size
+const HEADER_SIZE_MD={
+    h1_size:"50px", // For H1 : # 
+    h2_size:"40px", // For H2 : ##
+    h3_size:"30px", // For H3 : ###
+    h4_size:"20px", // For H4 : ####
+    h5_size:"10px" // For H5 : #####
+};
+
+const HEADER_OPERATOR_MD={
+    h1_operator:"#", // For H1 : # 
+    h2_operator:"##", // For H2 : ##
+    h3_operator:"###", // For H3 : ###
+    h4_operator:"####", // For H4 : ####
+    h5_operator:"#####"// For H5 : #####
+};
+
+// md emphasis Style
+const EMPHASIS_STYLE={
+    E1:'**',
+    E2:'*',
+    E3:'__',
+    E4:'_'
+};
+
+
+// Button Color
+const deactivated_color="#696969";
+
+const btn1_activate_color="#000080"
+const btn2_activate_color="#FFA500";
+const btn3_activate_color="#008000";
+
+// Text Area Setting 
+const memo_font_color="	#000000";
+const memo_activated_color="#FDFD96";
+const memo_deactivated_color="#FFFFFF";
+
+// MD Frame Setting
+const md_frame_outline="5px solid blue";
+const md_frame_background="green";
