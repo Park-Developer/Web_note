@@ -1,9 +1,3 @@
-
-//Memo_area
-
-let converted_result=document.createElement("div");
-converted_result.classList.add("MD_display");
-
 //  TODO LIST 
 //  Memo가 바뀌면 md 검사 다시하기
 
@@ -73,10 +67,9 @@ let te_line_element = search_memo();
 console.log("line emelent",te_line_element);
 
 /*TEST PROGRAM */
-Memo.appendChild(converted_result);
-md_frame_setting(converted_result);
+
 for (step = 0; step < Memo_area.rows; step++) {
-    converted_result.appendChild(te_line_element[step]);
+    MD_converted_result.appendChild(te_line_element[step]);
 }
 
 /*TEST PROGRAM */
@@ -152,12 +145,6 @@ function MD_func_make_header(line){
     } 
 }
 
-
-
-function md_frame_setting(md_frame){
-    md_frame.style.outline = md_frame_outline;
-    md_frame.style.backgroundColor=md_frame_background;
-}
 
 function make_md_setting(line){
     let md_setting={
@@ -245,6 +232,8 @@ function apply_md_property(text_array,text_idx,md_setting){
 
             // emphasis 속성 적용
             individual_text_tag.style.fontWeight="bold";
+
+            // Idea : 강조 스타일별로 표시형태를 달리할수도 있을듯
         }
                             
         // Emphasis Operator

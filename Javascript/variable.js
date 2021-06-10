@@ -73,6 +73,4 @@ const memo_font_color="	#000000";
 const memo_activated_color="#FDFD96";
 const memo_deactivated_color="#FFFFFF";
 
-// MD Frame Setting
-const md_frame_outline="5px solid blue";
-const md_frame_background="green";
+

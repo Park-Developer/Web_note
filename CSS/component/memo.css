@@ -41,3 +41,10 @@ background-color: blue;
 .js-Memo_Ref{
     font-size:2px;
 }
+
+/*MD Display*/
+.js-Memo_MD_Display{
+    outline : var(--md_frame_outline);
+    background-color:var(--md_frame_background);
+}
+

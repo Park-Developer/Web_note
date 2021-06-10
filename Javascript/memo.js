@@ -1,19 +1,3 @@
-const Memo = document.querySelector(".js-Memo"),
-      Memo_Title= Memo.querySelector(".js-Memo_Title"),
-      Memo_BTN_List= Memo.querySelector(".js-Memo__Button_list"),
-      Memo_btn1= Memo.querySelector(".js-Memo__Button_1"),
-      Memo_btn2= Memo.querySelector(".js-Memo__Button_2"),
-      Memo_btn3= Memo.querySelector(".js-Memo__Button_3"),
-      Memo_area= Memo.querySelector(".js-Memo_contents");
-
-let Edit_Activation=true; // 편집가능 상태
-
-
-// Button State
-var btn1_state=false;  
-var btn2_state=false;
-var btn3_state=false;
-
 let keysDown = {};
 
 function Btn_list_setting()
@@ -96,7 +80,7 @@ function change_btn_state(clicked_btn){
 
     let memo_data="memo"+String(clicked_btn);
     Memo_area.value= localStorage.getItem(memo_data);
-
+    convert_Memo_to_MD();
 }
 
 // Button Click Event
@@ -126,13 +110,15 @@ function text_focusing(event){
 }
 
 function shortkey_run_n_save(event, keysDown){
+    console.log("shortkey_run_n_save");
     let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     if (keysDown["Control"] && keysDown["Enter"]) {
         //do what you want when control and a is pressed for example
         save_cur_data(current_activate_btn); // 현재 데이터 저장
         // 여기에 마크업  변환 함수 넣기
-        console.log("run and save");
-        Edit_Activation=false;
+        
+        change_to_MD_Display()
+
       }
 }
 
@@ -142,7 +128,8 @@ function text_focus_out()
     let current_activate_btn=parseInt(localStorage.getItem('memo_Btn'));
     event.target.style.background =memo_deactivated_color;
     save_cur_data(current_activate_btn);
-    Edit_Activation=false;
+    convert_Memo_to_MD();
+    change_to_MD_Display();
 }
 
 function keydown(event){
@@ -195,16 +182,56 @@ function update_memo(){
     change_btn_state(current_activate_btn);
 }
 
+function change_to_Edit(){ // Change MD to Memo
+    MD_converted_result.style.display="none";
+    Memo_area.style.display="block";
+}
+
+function change_to_MD_Display(){ // Change Memo to MD
+    MD_converted_result.style.display="block";
+    Memo_area.style.display="none";
+}
 
 
+function MD_area_event_Setting(){
+    console.log("MD_area_Setting");
+    MD_converted_result.addEventListener("click", change_to_Edit);
+}
+
+function convert_Memo_to_MD(){
+    console.log(" convert_Memo_to_MD");
+
+    let line_array = search_memo(); // Memo장에 있는 데이터 가져오기
+
+    // 기존 Element 제거
+    while (MD_converted_result.firstChild) {
+        MD_converted_result.removeChild(MD_converted_result.firstChild);
+    }
+
+
+    for (step = 0; step < Memo_area.rows; step++) {
+        MD_converted_result.appendChild(line_array[step]);
+    }
+
+}
 
 function init(){
+    console.log("MD_div####",MD_div);
+    //MD_converted_result.removeChild(MD_div); 
     update_memo();
+    convert_Memo_to_MD()
     Btn_list_setting();
     text_area_Setting();
-  
-  setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
+    MD_area_event_Setting();
+
     
+    setInterval(save_cur_data,3000); // 3초에 한번씩 자동저장
+    
+
+
+    // Default Display
+
+    change_to_MD_Display();
 }
 
 init();
