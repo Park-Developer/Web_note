@@ -1,10 +1,3 @@
-const schedule_table=document.querySelector(".js-Schedule__Table");
-const past_Color="#808080"; // #808080 : Gray 
-const detail_setting=document.querySelector(".js-Detail_frame__setting");
-const detail_modification=document.querySelector(".js-Detail_frame__modification");
-
-const reset_button=document.querySelector(".js-Schedule__reset");
-
 let event_use_state={
     /*
     0 : Not Use
