@@ -1,0 +1,45 @@
+.js-Worktime_checker_Frame {
+ display:flex;
+}
+
+.js-Worktime_checker_Title{
+    color :whitesmoke;
+    font-weight: 600;
+}
+
+.js-Worktime_checker_Total_Time{
+    color :whitesmoke;
+}
+
+.js-Worktime_checker__TimerFrame{
+    margin-top: var(--component_Title_top_margin);
+
+}
+
+.js-Worktime_checker__StatisticFrame{
+    margin-top: var(--component_Title_top_margin);
+    color:whitesmoke;    
+    height: 300px;
+}
+
+
+
+.js-Worktime_checker__StatisticTable{
+    border:1px solid white;
+}
+
+
+.js-Worktime_checker_Lists{
+    color:whitesmoke;
+    
+    justify-content: space-between;
+}
+
+.js-Worktime_checker__Summary{
+    color:whitesmoke;
+    margin-top:100px;
+}
+
+.js-Worktime_checker__header{
+    background-color: darkslategrey;
+}

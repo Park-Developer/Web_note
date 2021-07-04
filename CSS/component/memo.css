@@ -44,6 +44,7 @@ background-color: blue;
 
 /*MD Display*/
 .js-Memo_MD_Display{
+    color:black;
     outline : var(--md_frame_outline);
     background-color:var(--md_frame_background);
 }

@@ -8,10 +8,9 @@
  @import "../CSS/component/clock.css";
  @import "../CSS/component/memo.css";
  @import "../CSS/component/schedule.css";
- @import "../CSS/component/statistics.css";
  @import "../CSS/Detail/detail_frame.css";
- @import "../CSS/component/timer.css";
- 
+ @import "../CSS/component/worktime_checker.css";
+
  body {
      height:1000vh;
      background-color: var(--background_color);
