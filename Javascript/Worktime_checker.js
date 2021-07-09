@@ -11,6 +11,27 @@ const WORK_TIMER_NUMBER = 15;
 
 let TIMER_BUFFER = [];
 
+var work_chart = new Chart(document.querySelector(".Summary_bar-chart"), {
+    type: 'bar',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: "Population (millions)",
+                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                data: []
+            }
+        ]
+    },
+    options: {
+        legend: { display: false },
+        title: {
+            display: true,
+            text: 'Work Chart'
+        }
+    }
+});
+
 // TIMMER_BUFFER Initialization
 for (var i = 0; i < WORK_TIMER_NUMBER; i++) {
     var obj = new Object();
@@ -104,6 +125,7 @@ function count_time() {
 }
 
 function endTimer() {
+    console.log("endTimer");
     let target_btn = event.target;
     let target_li = target_btn.parentNode;
 
@@ -135,6 +157,11 @@ function endTimer() {
     save_Workslist(); //변경사항 저장
     update_worktable(event);
     target_li.style.backgroundColor = '#1f2124';
+    console.log("work_lists", work_lists);
+    update_chart(work_lists, work_chart);
+
+    console.log("work chart", work_chart["data"]["datasets"][0]["data"]);
+    console.log("work chart", work_chart["data"]["datasets"][0]["backgroundColor"]);
 }
 
 function save_Workslist() {
